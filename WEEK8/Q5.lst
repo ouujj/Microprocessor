@@ -1,0 +1,237 @@
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 1
+
+
+
+
+
+       MCS-51 Family Macro Assembler   A S E M - 5 1   V 1.3
+       =====================================================
+
+
+
+	Source File:	E:\micro\Lab\WEEK8\Q5.ASM
+	Object File:	E:\micro\Lab\WEEK8\Q5.hex
+	List File:	E:\micro\Lab\WEEK8\Q5.lst
+
+
+
+ Line  I  Addr  Code            Source
+
+    1:		N      0040	RX_DATA			EQU		40H
+    2:		N      00C8	T2CON			EQU		0C8H
+    3:		N      00CB	RCAP2H			EQU		0CBH
+    4:		N      00CA	RCAP2L			EQU		0CAH
+    5:
+    6:		N      8000				ORG		8000H
+    7:	  8000	21 00					JMP		8100H
+    8:
+    9:		N      9F4B				ORG		9F4BH
+   10:	  9F4B	02 81 56				JMP		ES_ISR
+   11:
+   12:		N      8100				ORG		8100H
+   13:	  8100	12 81 49				CALL		DELAY
+   14:
+   15:	  8103	75 98 50				MOV		SCON,#50H
+   16:	  8106	75 CB FF				MOV		RCAP2H,#0FFH
+   17:	  8109	75 CA DC				MOV		RCAP2L,#0DCH
+   18:	  810C	75 C8 34				MOV		T2CON,#34H
+   19:
+   20:	  810F	75 A8 90				MOV		IE,#10010000B
+   21:	  8112	D2 8E					SETB		TR1
+   22:
+   23:	  8114	74 0C					MOV		A,#0CH
+   24:	  8116	F5 99					MOV		SBUF,A
+   25:	  8118	30 99 FD				JNB		TI,$
+   26:	  811B	75 40 52				MOV		RX_DATA,#"R"
+   27:	  811E	78 01					MOV		R0,#01H
+   28:
+   29:	  8120	90 E0 02				MOV		DPTR,#0E002H
+   30:	  8123	74 06					MOV		A,#6
+   31:	  8125	F0					MOVX		@DPTR,A
+   32:
+   33:	  8126			MAIN_LOOP:
+   34:	  8126	E8					MOV		A,R0
+   35:	  8127	90 E0 01				MOV		DPTR,#0E001H
+   36:	  812A	F0					MOVX		@DPTR,A
+   37:	  812B	E5 40					MOV		A,RX_DATA
+   38:
+   39:	  812D	B4 52 09	IS_R:			CJNE		A,#"R",IS_L
+   40:	  8130	C0 E0					PUSH		ACC
+   41:	  8132	E8					MOV		A,R0
+   42:	  8133	13					RRC		A
+   43:	  8134	F8					MOV		R0,A
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 2
+
+
+
+ Line  I  Addr  Code            Source
+
+   44:	  8135	D0 E0					POP		ACC
+   45:	  8137	80 ED					JMP		MAIN_LOOP
+   46:
+   47:	  8139	B4 4C 0B	IS_L:			CJNE		A,#"L",IS_S
+   48:	  813C	C0 E0					PUSH		ACC
+   49:	  813E	E8					MOV		A,R0
+   50:	  813F	23					RL		A
+   51:	  8140	F8					MOV		R0,A
+   52:	  8141	F5 40					MOV		RX_DATA,A
+   53:	  8143	D0 E0					POP		ACC
+   54:	  8145	80 DF					JMP		MAIN_LOOP
+   55:
+   56:	  8147	80 DD		IS_S:			JMP		MAIN_LOOP
+   57:
+   58:
+   59:	  8149	7D 04		DELAY:			MOV		R5,#04
+   60:
+   61:	  814B	7E FF		_DLY00:			MOV		R6,#255
+   62:	  814D	7F FF		_DLY01:			MOV		R7,#255
+   63:	  814F	DF FE		_DLY02:			DJNZ		R7,_DLY02
+   64:	  8151	DE FA					DJNZ		R6,_DLY01
+   65:	  8153	DD F6					DJNZ		R5,_DLY00
+   66:
+   67:	  8155	22					RET
+   68:
+   69:	  8156	C2 AC		ES_ISR:			CLR		ES
+   70:	  8158	20 99 0A				JB		TI,XSRI
+   71:	  815B	C0 E0					PUSH		ACC
+   72:	  815D	E5 99					MOV		A,SBUF
+   73:	  815F	F5 99					MOV		SBUF,A
+   74:	  8161	F5 40					MOV		RX_DATA,A
+   75:	  8163	D0 E0					POP		ACC
+   76:	  8165	C2 99		XSRI:			CLR		TI
+   77:	  8167	C2 98					CLR		RI
+   78:	  8169	D2 AC					SETB		ES
+   79:	  816B	32					RETI
+   80:
+   81:
+   82:
+   83:
+
+   84:
+   85:
+   86:
+   87:
+   88:							END
+
+
+
+
+
+                     register banks used:  ---
+
+                     no errors
+
+
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 3
+
+
+
+
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 4
+
+
+
+
+
+	       L I S T   O F   S Y M B O L S
+	       =============================
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+??ASEM_51			  NUMBER    8051
+??VERSION			  NUMBER    0130
+AC				  BIT	      D6
+ACC				  DATA	      E0
+B				  DATA	      F0
+CY				  BIT	      D7
+DELAY				  CODE	    8149	  59
+DPH				  DATA	      83
+DPL				  DATA	      82
+EA				  BIT	      AF
+ES				  BIT	      AC
+ES_ISR				  CODE	    8156	  69
+ET0				  BIT	      A9
+ET1				  BIT	      AB
+EX0				  BIT	      A8
+EX1				  BIT	      AA
+EXTI0				  CODE	    0003
+EXTI1				  CODE	    0013
+F0				  BIT	      D5
+IE				  DATA	      A8
+IE0				  BIT	      89
+IE1				  BIT	      8B
+INT0				  BIT	      B2
+INT1				  BIT	      B3
+IP				  DATA	      B8
+IS_L				  CODE	    8139	  47
+IS_R				  CODE	    812D	  39
+IS_S				  CODE	    8147	  56
+IT0				  BIT	      88
+IT1				  BIT	      8A
+MAIN_LOOP			  CODE	    8126	  33
+OV				  BIT	      D2
+P				  BIT	      D0
+P0				  DATA	      80
+P1				  DATA	      90
+P2				  DATA	      A0
+P3				  DATA	      B0
+PCON				  DATA	      87
+PS				  BIT	      BC
+PSW				  DATA	      D0
+PT0				  BIT	      B9
+PT1				  BIT	      BB
+PX0				  BIT	      B8
+PX1				  BIT	      BA
+RB8				  BIT	      9A
+RCAP2H				  NUMBER    00CB	   3
+RCAP2L				  NUMBER    00CA	   4
+RD				  BIT	      B7
+REN				  BIT	      9C
+RESET				  CODE	    0000
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 5
+
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+RI				  BIT	      98
+RS0				  BIT	      D3
+RS1				  BIT	      D4
+RXD				  BIT	      B0
+RX_DATA				  NUMBER    0040	   1
+SBUF				  DATA	      99
+SCON				  DATA	      98
+SINT				  CODE	    0023
+SM0				  BIT	      9F
+SM1				  BIT	      9E
+SM2				  BIT	      9D
+SP				  DATA	      81
+T0				  BIT	      B4
+T1				  BIT	      B5
+T2CON				  NUMBER    00C8	   2
+TB8				  BIT	      9B
+TCON				  DATA	      88
+TF0				  BIT	      8D
+TF1				  BIT	      8F
+TH0				  DATA	      8C
+TH1				  DATA	      8D
+TI				  BIT	      99
+TIMER0				  CODE	    000B
+TIMER1				  CODE	    001B
+TL0				  DATA	      8A
+TL1				  DATA	      8B
+TMOD				  DATA	      89
+TR0				  BIT	      8C
+TR1				  BIT	      8E
+TXD				  BIT	      B1
+WR				  BIT	      B6
+XSRI				  CODE	    8165	  76
+_DLY00				  CODE	    814B	  61
+_DLY01				  CODE	    814D	  62
+_DLY02				  CODE	    814F	  63

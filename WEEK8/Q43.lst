@@ -1,0 +1,372 @@
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 1
+
+
+
+
+
+       MCS-51 Family Macro Assembler   A S E M - 5 1   V 1.3
+       =====================================================
+
+
+
+	Source File:	E:\micro\Lab\WEEK8\Q43.ASM
+	Object File:	E:\micro\Lab\WEEK8\Q43.hex
+	List File:	E:\micro\Lab\WEEK8\Q43.lst
+
+
+
+ Line  I  Addr  Code            Source
+
+    1:		N      0040					Data_count EQU 40H
+    2:		N      0041	Load_TH   EQU 41H
+    3:		N      0042	Load_TL   EQU 42H
+    4:
+    5:		N      8000		ORG 8000H
+    6:	  8000	02 81 00		JMP Start
+    7:		N      9F42		ORG 9F42H
+    8:	  9F42	02 82 B8		JMP Timer0_Intr
+    9:		N      8100		ORG 8100H
+   10:	  8100	75 89 21	Start: MOV TMOD,#000100001B
+   11:	  8103	D2 AF			SETB EA
+   12:	  8105	D2 A9			SETB ET0
+   13:	  8107	D2 8C			SETB TR0
+   14:
+   15:	  8109			Main_Loop:
+   16:	  8109	12 82 A8		CALL xxDelay
+   17:	  810C	12 82 A8		CALL xxDelay
+   18:	  810F	12 82 A8		CALL xxDelay
+   19:	  8112	12 82 A8		CALL xxDelay
+   20:
+   21:	  8115	90 F8 A1		MOV DPTR,#-1915+28	; c
+   22:	  8118	85 83 41		MOV Load_TH,DPH
+   23:	  811B	85 82 42		MOV Load_TL,DPL
+   24:	  811E	D2 8C			SETB TR0
+   25:	  8120	12 82 A8		CALL xxDelay
+   26:	  8123	12 82 A8		CALL xxDelay
+   27:	  8126	12 82 A8		CALL xxDelay
+   28:	  8129	12 82 A8		CALL xxDelay
+   29:	  812C	C2 8C			CLR TR0
+   30:	  812E	12 82 A8		CALL xxDelay
+   31:
+   32:	  8131	90 F8 A1		MOV DPTR,#-1915+28	;c
+   33:	  8134	85 83 41		MOV Load_TH,DPH
+   34:	  8137	85 82 42		MOV Load_TL,DPL
+   35:	  813A	D2 8C			SETB TR0
+   36:	  813C	12 82 A8		CALL xxDelay
+   37:	  813F	12 82 A8		CALL xxDelay
+   38:	  8142	12 82 A8		CALL xxDelay
+   39:	  8145	12 82 A8		CALL xxDelay
+   40:	  8148	C2 8C			CLR TR0
+   41:	  814A	12 82 A8		CALL xxDelay
+   42:
+   43:	  814D	90 FB 21		MOV DPTR,#-1275+28	;g
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 2
+
+
+
+ Line  I  Addr  Code            Source
+
+   44:	  8150	85 83 41		MOV Load_TH,DPH
+   45:	  8153	85 82 42		MOV Load_TL,DPL
+   46:	  8156	D2 8C			SETB TR0
+   47:	  8158	12 82 A8		CALL xxDelay
+   48:	  815B	12 82 A8		CALL xxDelay
+   49:	  815E	12 82 A8		CALL xxDelay
+   50:	  8161	12 82 A8		CALL xxDelay
+   51:	  8164	C2 8C			CLR TR0
+   52:	  8166	12 82 A8		CALL xxDelay
+   53:
+   54:	  8169	90 FB 21		MOV DPTR,#-1275+28	;g
+   55:	  816C	85 83 41		MOV Load_TH,DPH
+   56:	  816F	85 82 42		MOV Load_TL,DPL
+   57:	  8172	D2 8C			SETB TR0
+   58:	  8174	12 82 A8		CALL xxDelay
+   59:	  8177	12 82 A8		CALL xxDelay
+   60:	  817A	12 82 A8		CALL xxDelay
+   61:	  817D	12 82 A8		CALL xxDelay
+   62:	  8180	C2 8C			CLR TR0
+   63:	  8182	12 82 A8		CALL xxDelay
+   64:
+   65:	  8185	90 FB AC		MOV DPTR,#-1136+28	;a
+   66:	  8188	85 83 41		MOV Load_TH,DPH
+   67:	  818B	85 82 42		MOV Load_TL,DPL
+   68:	  818E	D2 8C			SETB TR0
+   69:	  8190	12 82 A8		CALL xxDelay
+   70:	  8193	12 82 A8		CALL xxDelay
+   71:	  8196	12 82 A8		CALL xxDelay
+   72:	  8199	12 82 A8		CALL xxDelay
+   73:	  819C	C2 8C			CLR TR0
+   74:	  819E	12 82 A8		CALL xxDelay
+   75:
+   76:	  81A1	90 FB AC		MOV DPTR,#-1136+28	;a
+   77:	  81A4	85 83 41		MOV Load_TH,DPH
+   78:	  81A7	85 82 42		MOV Load_TL,DPL
+   79:	  81AA	D2 8C			SETB TR0
+   80:	  81AC	12 82 A8		CALL xxDelay
+   81:	  81AF	12 82 A8		CALL xxDelay
+   82:	  81B2	12 82 A8		CALL xxDelay
+   83:	  81B5	12 82 A8		CALL xxDelay
+   84:	  81B8	C2 8C			CLR TR0
+   85:	  81BA	12 82 A8		CALL xxDelay
+   86:
+   87:
+   88:	  81BD	90 FB 21		MOV DPTR,#-1275+28	;g
+   89:	  81C0	85 83 41		MOV Load_TH,DPH
+   90:	  81C3	85 82 42		MOV Load_TL,DPL
+   91:	  81C6	D2 8C			SETB TR0
+   92:	  81C8	12 82 A8		CALL xxDelay
+   93:	  81CB	12 82 A8		CALL xxDelay
+   94:	  81CE	12 82 A8		CALL xxDelay
+   95:	  81D1	12 82 A8		CALL xxDelay
+   96:	  81D4	C2 8C			CLR TR0
+   97:	  81D6	12 82 A8		CALL xxDelay
+   98:
+   99:
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 3
+
+
+
+ Line  I  Addr  Code            Source
+
+  100:	  81D9	12 82 A8		CALL xxDelay
+  101:	  81DC	12 82 A8		CALL xxDelay
+  102:	  81DF	12 82 A8		CALL xxDelay
+  103:
+  104:	  81E2	90 FA 84		MOV DPTR,#-1432+28	;f
+  105:	  81E5	85 83 41		MOV Load_TH,DPH
+  106:	  81E8	85 82 42		MOV Load_TL,DPL
+  107:	  81EB	D2 8C			SETB TR0
+  108:	  81ED	12 82 A8		CALL xxDelay
+  109:	  81F0	12 82 A8		CALL xxDelay
+  110:	  81F3	12 82 A8		CALL xxDelay
+  111:	  81F6	12 82 A8		CALL xxDelay
+  112:	  81F9	C2 8C			CLR TR0
+  113:	  81FB	12 82 A8		CALL xxDelay
+  114:
+  115:	  81FE	90 FA 84		MOV DPTR,#-1432+28	;f
+  116:	  8201	85 83 41		MOV Load_TH,DPH
+  117:	  8204	85 82 42		MOV Load_TL,DPL
+  118:	  8207	D2 8C			SETB TR0
+  119:	  8209	12 82 A8		CALL xxDelay
+  120:	  820C	12 82 A8		CALL xxDelay
+  121:	  820F	12 82 A8		CALL xxDelay
+  122:	  8212	12 82 A8		CALL xxDelay
+  123:	  8215	C2 8C			CLR TR0
+  124:	  8217	12 82 A8		CALL xxDelay
+  125:
+  126:	  821A	90 FA 2D		MOV DPTR,#-1519+28	;e
+  127:	  821D	85 83 41		MOV Load_TH,DPH
+  128:	  8220	85 82 42		MOV Load_TL,DPL
+  129:	  8223	D2 8C			SETB TR0
+  130:	  8225	12 82 A8		CALL xxDelay
+  131:	  8228	12 82 A8		CALL xxDelay
+  132:	  822B	12 82 A8		CALL xxDelay
+  133:	  822E	12 82 A8		CALL xxDelay
+  134:	  8231	C2 8C			CLR TR0
+  135:	  8233	12 82 A8		CALL xxDelay
+  136:
+  137:	  8236	90 FA 2D		MOV DPTR,#-1519+28	;e
+  138:	  8239	85 83 41		MOV Load_TH,DPH
+  139:	  823C	85 82 42		MOV Load_TL,DPL
+  140:	  823F	D2 8C			SETB TR0
+  141:	  8241	12 82 A8		CALL xxDelay
+  142:	  8244	12 82 A8		CALL xxDelay
+  143:	  8247	12 82 A8		CALL xxDelay
+  144:	  824A	12 82 A8		CALL xxDelay
+  145:	  824D	C2 8C			CLR TR0
+  146:	  824F	12 82 A8		CALL xxDelay
+  147:
+  148:
+  149:	  8252	90 F9 78		MOV DPTR,#-1700+28	;d
+  150:	  8255	85 83 41		MOV Load_TH,DPH
+  151:	  8258	85 82 42		MOV Load_TL,DPL
+  152:	  825B	D2 8C			SETB TR0
+  153:	  825D	12 82 A8		CALL xxDelay
+  154:	  8260	12 82 A8		CALL xxDelay
+  155:	  8263	12 82 A8		CALL xxDelay
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 4
+
+
+
+ Line  I  Addr  Code            Source
+
+  156:	  8266	12 82 A8		CALL xxDelay
+  157:	  8269	C2 8C			CLR TR0
+  158:	  826B	12 82 A8		CALL xxDelay
+  159:
+  160:	  826E	90 F9 78		MOV DPTR,#-1700+28	;d
+  161:	  8271	85 83 41		MOV Load_TH,DPH
+  162:	  8274	85 82 42		MOV Load_TL,DPL
+  163:	  8277	D2 8C			SETB TR0
+  164:	  8279	12 82 A8		CALL xxDelay
+  165:	  827C	12 82 A8		CALL xxDelay
+  166:	  827F	12 82 A8		CALL xxDelay
+  167:	  8282	12 82 A8		CALL xxDelay
+  168:	  8285	C2 8C			CLR TR0
+  169:	  8287	12 82 A8		CALL xxDelay
+  170:
+  171:	  828A	90 F8 A1		MOV DPTR,#-1915+28	;c
+  172:	  828D	85 83 41		MOV Load_TH,DPH
+  173:	  8290	85 82 42		MOV Load_TL,DPL
+  174:	  8293	D2 8C			SETB TR0
+  175:	  8295	12 82 A8		CALL xxDelay
+  176:	  8298	12 82 A8		CALL xxDelay
+  177:	  829B	12 82 A8		CALL xxDelay
+  178:	  829E	12 82 A8		CALL xxDelay
+  179:	  82A1	C2 8C			CLR TR0
+  180:	  82A3	12 82 A8		CALL xxDelay
+  181:
+  182:
+  183:	  82A6	21 09			JMP Main_Loop
+  184:
+  185:	  82A8			xxDelay:
+  186:	  82A8	79 01			MOV R1,#1
+  187:	  82AA	75 F0 70		MOV B,#70H
+  188:	  82AD	74 70			MOV A,#70H
+  189:
+  190:	  82AF			_xxDLY00:
+  191:	  82AF	D5 E0 FD		DJNZ Acc,_xxDLY00
+  192:	  82B2	D5 F0 FA		DJNZ B,_xxDLY00
+  193:	  82B5	D9 F8			DJNZ R1,_xxDLY00
+  194:	  82B7	22			RET
+  195:
+  196:	  82B8			Timer0_Intr:
+  197:	  82B8	C2 8C			CLR TR0
+  198:	  82BA	C0 E0			PUSH Acc
+  199:	  82BC	C0 83			PUSH DPH
+  200:	  82BE	C0 82			PUSH DPL
+  201:	  82C0	85 41 8C		MOV TH0,Load_TH
+  202:	  82C3	85 42 8A		MOV TL0,Load_TL
+  203:	  82C6	D2 8C			SETB TR0
+  204:	  82C8	E5 40			MOV A,Data_count
+  205:	  82CA	F4			CPL A
+  206:	  82CB	F5 40			MOV Data_count,A
+  207:	  82CD	F5 90			MOV P1,A
+  208:	  82CF	90 E0 00		MOV DPTR,#0E000H
+  209:	  82D2	F0			MOVX @DPTR,A
+  210:	  82D3	D0 82			POP DPL
+  211:	  82D5	D0 82			POP DPL
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 5
+
+
+
+ Line  I  Addr  Code            Source
+
+  212:	  82D7	D0 E0			POP Acc
+  213:	  82D9	32			RETI
+  214:				END
+
+
+
+
+
+                     register banks used:  ---
+
+                     no errors
+
+
+
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 6
+
+
+
+
+
+	       L I S T   O F   S Y M B O L S
+	       =============================
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+??ASEM_51			  NUMBER    8051
+??VERSION			  NUMBER    0130
+AC				  BIT	      D6
+ACC				  DATA	      E0
+B				  DATA	      F0
+CY				  BIT	      D7
+DATA_COUNT			  NUMBER    0040	   1
+DPH				  DATA	      83
+DPL				  DATA	      82
+EA				  BIT	      AF
+ES				  BIT	      AC
+ET0				  BIT	      A9
+ET1				  BIT	      AB
+EX0				  BIT	      A8
+EX1				  BIT	      AA
+EXTI0				  CODE	    0003
+EXTI1				  CODE	    0013
+F0				  BIT	      D5
+IE				  DATA	      A8
+IE0				  BIT	      89
+IE1				  BIT	      8B
+INT0				  BIT	      B2
+INT1				  BIT	      B3
+IP				  DATA	      B8
+IT0				  BIT	      88
+IT1				  BIT	      8A
+LOAD_TH				  NUMBER    0041	   2
+LOAD_TL				  NUMBER    0042	   3
+MAIN_LOOP			  CODE	    8109	  15
+OV				  BIT	      D2
+P				  BIT	      D0
+P0				  DATA	      80
+P1				  DATA	      90
+P2				  DATA	      A0
+P3				  DATA	      B0
+PCON				  DATA	      87
+PS				  BIT	      BC
+PSW				  DATA	      D0
+PT0				  BIT	      B9
+PT1				  BIT	      BB
+PX0				  BIT	      B8
+PX1				  BIT	      BA
+RB8				  BIT	      9A
+RD				  BIT	      B7
+REN				  BIT	      9C
+RESET				  CODE	    0000
+RI				  BIT	      98
+RS0				  BIT	      D3
+RS1				  BIT	      D4
+RXD				  BIT	      B0
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 7
+
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+SBUF				  DATA	      99
+SCON				  DATA	      98
+SINT				  CODE	    0023
+SM0				  BIT	      9F
+SM1				  BIT	      9E
+SM2				  BIT	      9D
+SP				  DATA	      81
+START				  CODE	    8100	  10
+T0				  BIT	      B4
+T1				  BIT	      B5
+TB8				  BIT	      9B
+TCON				  DATA	      88
+TF0				  BIT	      8D
+TF1				  BIT	      8F
+TH0				  DATA	      8C
+TH1				  DATA	      8D
+TI				  BIT	      99
+TIMER0				  CODE	    000B
+TIMER0_INTR			  CODE	    82B8	 196
+TIMER1				  CODE	    001B
+TL0				  DATA	      8A
+TL1				  DATA	      8B
+TMOD				  DATA	      89
+TR0				  BIT	      8C
+TR1				  BIT	      8E
+TXD				  BIT	      B1
+WR				  BIT	      B6
+XXDELAY				  CODE	    82A8	 185
+_XXDLY00			  CODE	    82AF	 190

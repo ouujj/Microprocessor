@@ -1,0 +1,227 @@
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 1
+
+
+
+
+
+       MCS-51 Family Macro Assembler   A S E M - 5 1   V 1.3
+       =====================================================
+
+
+
+	Source File:	C:\Users\AUSU\Desktop\GG.ASM
+	Object File:	C:\Users\AUSU\Desktop\GG.hex
+	List File:	C:\Users\AUSU\Desktop\GG.lst
+
+
+
+ Line  I  Addr  Code            Source
+
+    1:		N      0000			ORG 0000H
+    2:
+    3:						;STEP1 MAKE DIGIT
+    4:
+    5:	  0000	E5 40				MOV	A,40H
+    6:	  0002	C4				SWAP	A
+    7:	  0003	54 0F				ANL	A,#0FH
+    8:	  0005	F5 50				MOV	50H,A
+    9:	  0007	E5 40				MOV	A,40H
+   10:	  0009	54 0F				ANL	A,#0FH
+   11:	  000B	F5 51				MOV	51H,A
+   12:
+   13:	  000D	E5 41				MOV	A,41H
+   14:	  000F	C4				SWAP	A
+   15:	  0010	54 0F				ANL	A,#0FH
+   16:	  0012	F5 52				MOV	52H,A
+   17:	  0014	E5 41				MOV	A,41H
+   18:	  0016	54 0F				ANL	A,#0FH
+   19:	  0018	F5 53				MOV	53H,A
+   20:
+   21:	  001A	E5 42				MOV	A,42H
+   22:	  001C	C4				SWAP	A
+   23:	  001D	54 0F				ANL	A,#0FH
+   24:	  001F	F5 54				MOV	54H,A
+   25:	  0021	E5 42				MOV	A,42H
+   26:	  0023	54 0F				ANL	A,#0FH
+   27:	  0025	F5 55				MOV	55H,A
+   28:
+   29:						;STEP2 SET ZERO && SET @DIGIT
+   30:
+   31:
+   32:	  0027	75 60 00			MOV	60H,#00
+   33:	  002A	75 61 00			MOV	61H,#00
+   34:	  002D	75 62 00			MOV	62H,#00
+   35:	  0030	75 5F 00			MOV	5FH,#00
+   36:
+   37:	  0033	78 50				MOV	R0,#50H
+   38:
+   39:						;STEP3 MULTIPEL BY 10
+   40:
+   41:	  0035	C3		LOOP:		CLR	C
+   42:
+   43:	  0036	E5 62				MOV	A,62H
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 2
+
+
+
+ Line  I  Addr  Code            Source
+
+   44:	  0038	75 F0 0A			MOV	B,#10
+   45:	  003B	A4				MUL	AB
+   46:	  003C	F5 62				MOV	62H,A
+   47:	  003E	AE F0				MOV	R6,B
+   48:
+   49:	  0040	E5 61				MOV	A,61H
+   50:	  0042	75 F0 0A			MOV	B,#10
+   51:	  0045	A4				MUL	AB
+   52:	  0046	2E				ADD	A,R6
+   53:	  0047	F5 61				MOV	61H,A
+   54:	  0049	AE F0				MOV	R6,B
+   55:
+   56:	  004B	E5 60				MOV	A,60H
+   57:	  004D	75 F0 0A			MOV	B,#10
+   58:	  0050	A4				MUL	AB
+   59:	  0051	3E				ADDC	A,R6
+   60:	  0052	F5 60				MOV	60H,A
+   61:
+   62:	  0054	E5 F0				MOV	A,B
+   63:	  0056	34 00				ADDC	A,#00
+   64:	  0058	F5 5F				MOV	5FH,A
+   65:
+   66:						;STEP4 PULS BY MOST DIGIT
+   67:
+   68:	  005A	C3				CLR	C
+   69:
+   70:	  005B	E6				MOV	A,@R0
+   71:	  005C	25 62				ADD	A,62H
+   72:	  005E	F5 62				MOV	62H,A
+   73:
+   74:	  0060	E5 61				MOV	A,61H
+   75:	  0062	34 00				ADDC	A,#00H
+   76:	  0064	F5 61				MOV	61H,A
+   77:
+   78:	  0066	E5 60				MOV	A,60H
+   79:	  0068	34 00				ADDC	A,#00H
+   80:	  006A	F5 60				MOV	60H,A
+   81:
+   82:	  006C	E5 5F				MOV	A,5FH
+   83:	  006E	34 00				ADDC	A,#00H
+   84:	  0070	F5 5F				MOV	5FH,A
+   85:
+   86:	  0072	08				INC	R0
+   87:	  0073	B8 56 BF			CJNE	R0,#56H,LOOP
+   88:
+   89:	  0076	80 FE				SJMP	$
+   90:
+   91:
+   92:						END
+
+
+
+
+
+                     register banks used:  ---
+
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 3
+
+
+
+                     no errors
+
+
+
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 4
+
+
+
+
+
+	       L I S T   O F   S Y M B O L S
+	       =============================
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+??ASEM_51			  NUMBER    8051
+??VERSION			  NUMBER    0130
+AC				  BIT	      D6
+ACC				  DATA	      E0
+B				  DATA	      F0
+CY				  BIT	      D7
+DPH				  DATA	      83
+DPL				  DATA	      82
+EA				  BIT	      AF
+ES				  BIT	      AC
+ET0				  BIT	      A9
+ET1				  BIT	      AB
+EX0				  BIT	      A8
+EX1				  BIT	      AA
+EXTI0				  CODE	    0003
+EXTI1				  CODE	    0013
+F0				  BIT	      D5
+IE				  DATA	      A8
+IE0				  BIT	      89
+IE1				  BIT	      8B
+INT0				  BIT	      B2
+INT1				  BIT	      B3
+IP				  DATA	      B8
+IT0				  BIT	      88
+IT1				  BIT	      8A
+LOOP				  CODE	    0035	  41
+OV				  BIT	      D2
+P				  BIT	      D0
+P0				  DATA	      80
+P1				  DATA	      90
+P2				  DATA	      A0
+P3				  DATA	      B0
+PCON				  DATA	      87
+PS				  BIT	      BC
+PSW				  DATA	      D0
+PT0				  BIT	      B9
+PT1				  BIT	      BB
+PX0				  BIT	      B8
+PX1				  BIT	      BA
+RB8				  BIT	      9A
+RD				  BIT	      B7
+REN				  BIT	      9C
+RESET				  CODE	    0000
+RI				  BIT	      98
+RS0				  BIT	      D3
+RS1				  BIT	      D4
+RXD				  BIT	      B0
+SBUF				  DATA	      99
+SCON				  DATA	      98
+SINT				  CODE	    0023
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 5
+
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+SM0				  BIT	      9F
+SM1				  BIT	      9E
+SM2				  BIT	      9D
+SP				  DATA	      81
+T0				  BIT	      B4
+T1				  BIT	      B5
+TB8				  BIT	      9B
+TCON				  DATA	      88
+TF0				  BIT	      8D
+TF1				  BIT	      8F
+TH0				  DATA	      8C
+TH1				  DATA	      8D
+TI				  BIT	      99
+TIMER0				  CODE	    000B
+TIMER1				  CODE	    001B
+TL0				  DATA	      8A
+TL1				  DATA	      8B
+TMOD				  DATA	      89
+TR0				  BIT	      8C
+TR1				  BIT	      8E
+TXD				  BIT	      B1
+WR				  BIT	      B6
