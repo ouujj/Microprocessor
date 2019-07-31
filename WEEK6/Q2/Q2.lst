@@ -1,0 +1,195 @@
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 1
+
+
+
+
+
+       MCS-51 Family Macro Assembler   A S E M - 5 1   V 1.3
+       =====================================================
+
+
+
+	Source File:	I:\micro\Lab\WEEK6\Q2\Q2.ASM
+	Object File:	I:\micro\Lab\WEEK6\Q2\Q2.hex
+	List File:	I:\micro\Lab\WEEK6\Q2\Q2.lst
+
+
+
+ Line  I  Addr  Code            Source
+
+    1:		N      8000			ORG	8000H
+    2:	  8000	75 B0 FF			MOV	P3,#0FFH
+    3:	  8003	75 89 11			MOV     TMOD,#00010001B
+    4:
+    5:	  8006	30 B2 0B	LOOP:		JNB	P3.2,K1hz
+    6:	  8009	30 B3 0E			JNB	P3.3,K2hz
+    7:	  800C	30 B4 11			JNB	P3.4,K4hz
+    8:	  800F	30 B5 14			JNB	P3.5,K8hz
+    9:	  8012	80 F2				JMP	LOOP
+   10:
+   11:	  8014	90 FE 4B	K1hz:		MOV	DPTR,#-460+23
+   12:	  8017	02 80 2C			JMP	T_OFF
+   13:
+   14:	  801A	90 FF 31	K2hz:		MOV	DPTR,#-230+23
+   15:	  801D	02 80 2C			JMP	T_OFF
+   16:
+   17:	  8020	90 FF A4	K4hz:		MOV	DPTR,#-115+23
+   18:	  8023	02 80 2C			JMP	T_OFF
+   19:
+   20:	  8026	90 FF DE	K8hz:		MOV	DPTR,#-57+23
+   21:	  8029	02 80 2C			JMP	T_OFF
+   22:
+   23:	  802C	C2 8E		T_OFF:		CLR 	TR1 			; Stop Timer 4
+   24:	  802E	74 00				MOV 	A,#00H 			; Out Pulse 5
+   25:	  8030	F5 90		 		MOV 	P1,A 			; Out P1 6
+   26:	  8032	C0 83		 		PUSH	DPH
+   27:	  8034	C0 82				PUSH	DPL
+   28:	  8036	90 E0 00	 		MOV 	DPTR,#0E000H 		; Out Sound 6
+   29:	  8039	F0		 		MOVX 	@DPTR,A 		; 7
+   30:	  803A	D0 83		 		POP 	DPH
+   31:	  803C	D0 82		 		POP 	DPL
+   32:	  803E	85 83 8D	 		MOV 	TH1,DPH 		; For TH1 9
+   33:	  8041	85 82 8B	 		MOV 	TL1,DPL 		; For TL1 10
+   34:	  8044	C2 8F		 		CLR 	TF1 			; Initial Start 11
+   35:	  8046	D2 8E		 		SETB 	TR1 			; Start Timer1 12
+   36:	  8048	30 8F FD	 		JNB 	TF1,$ 			; Wait Until TF On 13
+   37:				 						; 14
+   38:
+   39:	  804B	C2 8E		T_ON: 		CLR 	TR1 			; 1MC 15
+   40:	  804D	74 FF		 		MOV 	A,#0FFH 		; 1MC 16
+   41:	  804F	F5 90				MOV 	P1,A			; 1MC 17
+   42:	  8051	C0 83				PUSH	DPH			; 2MC 18
+   43:	  8053	C0 82				PUSH	DPL			; 2MC 19
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 2
+
+
+
+ Line  I  Addr  Code            Source
+
+   44:	  8055	90 E0 00	 		MOV 	DPTR,#0E000H 		; 2MC 20
+   45:	  8058	F0		 		MOVX 	@DPTR,A 		; 2MC 21
+   46:	  8059	D0 83		 		POP 	DPH			; 2MC 22
+   47:	  805B	D0 82		 		POP 	DPL			; 2MC 23
+   48:	  805D	85 83 8D	 		MOV 	TH1,DPH 		; 2MC 24
+   49:	  8060	85 82 8B	 		MOV 	TL1,DPL 		; 2MC 25
+   50:	  8063	C2 8F		 		CLR 	TF1 			; 1MC 26
+   51:	  8065	D2 8E		 		SETB 	TR1 			; 1MC 27
+   52:	  8067	30 8F FD	 		JNB 	TF1,$ 			; 2MC 28
+   53:				 						; 29
+   54:	  806A	80 9A		 		JMP LOOP
+   55:
+   56:
+   57:
+   58:
+   59:					END
+
+
+
+
+
+                     register banks used:  ---
+
+                     no errors
+
+
+
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 3
+
+
+
+
+
+	       L I S T   O F   S Y M B O L S
+	       =============================
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+??ASEM_51			  NUMBER    8051
+??VERSION			  NUMBER    0130
+AC				  BIT	      D6
+ACC				  DATA	      E0
+B				  DATA	      F0
+CY				  BIT	      D7
+DPH				  DATA	      83
+DPL				  DATA	      82
+EA				  BIT	      AF
+ES				  BIT	      AC
+ET0				  BIT	      A9
+ET1				  BIT	      AB
+EX0				  BIT	      A8
+EX1				  BIT	      AA
+EXTI0				  CODE	    0003
+EXTI1				  CODE	    0013
+F0				  BIT	      D5
+IE				  DATA	      A8
+IE0				  BIT	      89
+IE1				  BIT	      8B
+INT0				  BIT	      B2
+INT1				  BIT	      B3
+IP				  DATA	      B8
+IT0				  BIT	      88
+IT1				  BIT	      8A
+K1HZ				  CODE	    8014	  11
+K2HZ				  CODE	    801A	  14
+K4HZ				  CODE	    8020	  17
+K8HZ				  CODE	    8026	  20
+LOOP				  CODE	    8006	   5
+OV				  BIT	      D2
+P				  BIT	      D0
+P0				  DATA	      80
+P1				  DATA	      90
+P2				  DATA	      A0
+P3				  DATA	      B0
+PCON				  DATA	      87
+PS				  BIT	      BC
+PSW				  DATA	      D0
+PT0				  BIT	      B9
+PT1				  BIT	      BB
+PX0				  BIT	      B8
+PX1				  BIT	      BA
+RB8				  BIT	      9A
+RD				  BIT	      B7
+REN				  BIT	      9C
+RESET				  CODE	    0000
+RI				  BIT	      98
+RS0				  BIT	      D3
+RS1				  BIT	      D4
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 4
+
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+RXD				  BIT	      B0
+SBUF				  DATA	      99
+SCON				  DATA	      98
+SINT				  CODE	    0023
+SM0				  BIT	      9F
+SM1				  BIT	      9E
+SM2				  BIT	      9D
+SP				  DATA	      81
+T0				  BIT	      B4
+T1				  BIT	      B5
+TB8				  BIT	      9B
+TCON				  DATA	      88
+TF0				  BIT	      8D
+TF1				  BIT	      8F
+TH0				  DATA	      8C
+TH1				  DATA	      8D
+TI				  BIT	      99
+TIMER0				  CODE	    000B
+TIMER1				  CODE	    001B
+TL0				  DATA	      8A
+TL1				  DATA	      8B
+TMOD				  DATA	      89
+TR0				  BIT	      8C
+TR1				  BIT	      8E
+TXD				  BIT	      B1
+T_OFF				  CODE	    802C	  23
+T_ON				  CODE	    804B	  39
+WR				  BIT	      B6

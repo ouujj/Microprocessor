@@ -1,0 +1,173 @@
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 1
+
+
+
+
+
+       MCS-51 Family Macro Assembler   A S E M - 5 1   V 1.3
+       =====================================================
+
+
+
+	Source File:	E:\micro\Lab\WEEK2\asm02.ASM
+	Object File:	E:\micro\Lab\WEEK2\asm02.hex
+	List File:	E:\micro\Lab\WEEK2\asm02.lst
+
+
+
+ Line  I  Addr  Code            Source
+
+    1:		N      8000		ORG	8000H
+    2:		N      E060	C7SEG	EQU	0E060H
+    3:
+    4:	  8000	3F 06 5B 4F	DATA1:	DB	3FH,06H,5BH,4FH
+    5:	  8004	66 6D 7D 07		DB	66H,6DH,7DH,7H
+    6:	  8008	7F 6F 77 7C		DB	7FH,6FH,77H,7CH
+    7:	  800C	39 5E 79 71		DB	39H,5EH,79H,71H
+    8:
+    9:	  8010	78 00		START:	MOV	R0,#0
+   10:	  8012	E8		MAIN:	MOV	A,R0
+   11:	  8013	08			INC	R0
+   12:	  8014	11 21			ACALL	TAB01
+   13:	  8016	90 E0 60		MOV	DPTR,#C7SEG
+   14:	  8019	F0			MOVX	@DPTR,A
+   15:	  801A	11 26			ACALL 	DELAY
+   16:	  801C	B8 10 F3		CJNE	R0,#10H,MAIN
+   17:	  801F	80 EF			SJMP 	START
+   18:
+   19:	  8021	90 80 00	TAB01:	MOV	DPTR,#DATA1
+   20:	  8024	93			MOVC	A,@A+DPTR
+   21:	  8025	22			RET
+   22:
+   23:	  8026	7D 08		DELAY:	MOV	R5,#08
+   24:	  8028	7E C1		DELAY1:	MOV	R6,#193
+   25:	  802A	7F C1		DELAY2:	MOV	R7,#193
+   26:	  802C	DF FE		DELAY3:	DJNZ	R7,DELAY3
+   27:	  802E	DE FA			DJNZ	R6,DELAY2
+   28:	  8030	DD F6			DJNZ	R5,DELAY1
+   29:	  8032	22			RET
+   30:
+   31:
+   32:
+   33:					END
+   34:
+   35:
+   36:
+   37:
+
+
+
+
+
+                     register banks used:  ---
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 2
+
+
+
+
+                     no errors
+
+
+
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 3
+
+
+
+
+
+	       L I S T   O F   S Y M B O L S
+	       =============================
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+??ASEM_51			  NUMBER    8051
+??VERSION			  NUMBER    0130
+AC				  BIT	      D6
+ACC				  DATA	      E0
+B				  DATA	      F0
+C7SEG				  NUMBER    E060	   2
+CY				  BIT	      D7
+DATA1				  CODE	    8000	   4
+DELAY				  CODE	    8026	  23
+DELAY1				  CODE	    8028	  24
+DELAY2				  CODE	    802A	  25
+DELAY3				  CODE	    802C	  26
+DPH				  DATA	      83
+DPL				  DATA	      82
+EA				  BIT	      AF
+ES				  BIT	      AC
+ET0				  BIT	      A9
+ET1				  BIT	      AB
+EX0				  BIT	      A8
+EX1				  BIT	      AA
+EXTI0				  CODE	    0003
+EXTI1				  CODE	    0013
+F0				  BIT	      D5
+IE				  DATA	      A8
+IE0				  BIT	      89
+IE1				  BIT	      8B
+INT0				  BIT	      B2
+INT1				  BIT	      B3
+IP				  DATA	      B8
+IT0				  BIT	      88
+IT1				  BIT	      8A
+MAIN				  CODE	    8012	  10
+OV				  BIT	      D2
+P				  BIT	      D0
+P0				  DATA	      80
+P1				  DATA	      90
+P2				  DATA	      A0
+P3				  DATA	      B0
+PCON				  DATA	      87
+PS				  BIT	      BC
+PSW				  DATA	      D0
+PT0				  BIT	      B9
+PT1				  BIT	      BB
+PX0				  BIT	      B8
+PX1				  BIT	      BA
+RB8				  BIT	      9A
+RD				  BIT	      B7
+REN				  BIT	      9C
+RESET				  CODE	    0000
+RI				  BIT	      98
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 4
+
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+RS0				  BIT	      D3
+RS1				  BIT	      D4
+RXD				  BIT	      B0
+SBUF				  DATA	      99
+SCON				  DATA	      98
+SINT				  CODE	    0023
+SM0				  BIT	      9F
+SM1				  BIT	      9E
+SM2				  BIT	      9D
+SP				  DATA	      81
+START				  CODE	    8010	   9
+T0				  BIT	      B4
+T1				  BIT	      B5
+TAB01				  CODE	    8021	  19
+TB8				  BIT	      9B
+TCON				  DATA	      88
+TF0				  BIT	      8D
+TF1				  BIT	      8F
+TH0				  DATA	      8C
+TH1				  DATA	      8D
+TI				  BIT	      99
+TIMER0				  CODE	    000B
+TIMER1				  CODE	    001B
+TL0				  DATA	      8A
+TL1				  DATA	      8B
+TMOD				  DATA	      89
+TR0				  BIT	      8C
+TR1				  BIT	      8E
+TXD				  BIT	      B1
+WR				  BIT	      B6
